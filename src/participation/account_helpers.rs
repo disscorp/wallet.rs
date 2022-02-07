@@ -11,10 +11,10 @@ pub(crate) async fn get_outputs_participation(
 ) -> crate::Result<(
     u64,
     u64,
-    // HashMap<String, crate::participation::response_types::TrackedParticipation>,
+    HashMap<String, crate::participation::response_types::TrackedParticipation>,
 )> {
-    // let mut total_output_participation: HashMap<String, crate::participation::response_types::TrackedParticipation> =
-    //     HashMap::new();
+    let mut total_output_participation: HashMap<String, crate::participation::response_types::TrackedParticipation> =
+        HashMap::new();
     let mut shimmer_staked_funds = 0;
     let mut assembly_staked_funds = 0;
 
@@ -45,16 +45,16 @@ pub(crate) async fn get_outputs_participation(
                     if event_id == crate::participation::types::ASSEMBLY_EVENT_ID {
                         assembly_staked_funds += output.amount;
                     }
-                    // total_output_participation
-                    //     .entry(event_id)
-                    //     .and_modify(|p| p.amount += participation.amount)
-                    //     .or_insert_with(|| participation);
+                    total_output_participation
+                        .entry(event_id)
+                        .and_modify(|p| p.amount += participation.amount)
+                        .or_insert_with(|| participation);
                 }
             }
         }
     }
 
-    Ok((shimmer_staked_funds, assembly_staked_funds))
+    Ok((shimmer_staked_funds, assembly_staked_funds, total_output_participation))
 }
 
 // helper function to get the rewards
