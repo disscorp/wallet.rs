@@ -4,6 +4,8 @@
 use crate::address::{Address, AddressOutput};
 use iota_client::node_manager::Node;
 
+use std::collections::HashMap;
+
 // helper function to get the staked funds and participations
 pub(crate) async fn get_outputs_participation(
     address_outputs: Vec<AddressOutput>,
@@ -38,7 +40,7 @@ pub(crate) async fn get_outputs_participation(
         for res in results {
             let (output, output_participation_res) = res;
             if let Ok(output_participation) = output_participation_res {
-                for (event_id, _participation) in output_participation.participations {
+                for (event_id, participation) in output_participation.participations {
                     if event_id == crate::participation::types::SHIMMER_EVENT_ID {
                         shimmer_staked_funds += output.amount;
                     }
