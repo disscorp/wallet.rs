@@ -1010,7 +1010,7 @@ impl AccountHandle {
         let (shimmer_staked_funds, assembly_staked_funds, tracked_participations): (
             u64,
             u64,
-            HashMap<String, crate::participation::response_types::TrackedParticipation>,
+            HashMap<String, Vec<crate::participation::response_types::TrackedParticipation>>,
         ) = crate::participation::account_helpers::get_outputs_participation(available_outputs, node.clone()).await?;
 
         let (shimmer_rewards, assembly_rewards, shimmer_rewards_below_minimum, assembly_rewards_below_minimum) =
