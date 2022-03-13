@@ -309,6 +309,7 @@ export declare interface MqttBrokerOptions {
 
 export declare enum SignerType {
   Stronghold = 1,
+  LedgerNano = 2,
 }
 
 export declare interface AccountToCreate {

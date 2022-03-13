@@ -32,6 +32,7 @@ module.exports = {
   initLogger: (config) => initLogger(JSON.stringify(config)),
   SignerType: {
     Stronghold: 1,
+    LedgerNano: 2,
   },
   MessageType: {
     Received: 1,

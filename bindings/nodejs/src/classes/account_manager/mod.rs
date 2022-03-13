@@ -16,6 +16,7 @@ use super::AccountWrapper;
 #[repr(u8)]
 pub enum AccountSignerType {
     Stronghold = 1,
+    LedgerNano = 2,
 }
 
 impl Default for AccountSignerType {
@@ -302,6 +303,7 @@ pub fn store_mnemonic(mut cx: FunctionContext) -> JsResult<JsUndefined> {
     let signer_type: AccountSignerType = serde_json::from_str(&signer_type.to_string()).expect("invalid signer type");
     let signer_type = match signer_type {
         AccountSignerType::Stronghold => SignerType::Stronghold,
+        AccountSignerType::LedgerNano => SignerType::LedgerNano,
     };
 
     let mnemonic = match cx.argument_opt(1) {
@@ -333,6 +335,7 @@ pub fn create_account(mut cx: FunctionContext) -> JsResult<JsBox<Arc<crate::acco
         .expect("failed to create account")
         .signer_type(match account_to_create.signer_type {
             AccountSignerType::Stronghold => SignerType::Stronghold,
+            AccountSignerType::LedgerNano => SignerType::LedgerNano,
         });
     if let Some(alias) = &account_to_create.alias {
         builder = builder.alias(alias);
